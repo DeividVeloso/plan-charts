@@ -7,14 +7,20 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import planApp from './store/reducers/';
 
-console.log("planApp", planApp);
 const store = createStore(planApp);
-console.log("STORE", store.getState());
+
+// const unsubscribe = store.subscribe(() =>
+//   console.log("STORE", store.getState())
+// )
+
+// store.dispatch(requestedPlanStudy('Learn about actions'))
+// store.dispatch(rejectedPlanStudy('Learn about actions'))
 
 ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('root'));
+  document.getElementById('root')
+);
 
 registerServiceWorker();

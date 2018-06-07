@@ -15,7 +15,16 @@ export default function(state = initialState, action) {
     case REQUESTED_PLAN_STUDY: { 
       return {
         ...state,
+        error: false,
         loading: true
+      }
+    }
+    case FETCHED_PLAN_STUDY: {
+      return {
+        ...state,
+        data: action.payload,
+        loading: false,
+        error: false,
       }
     }
     case REJECTED_PLAN_STUDY: {

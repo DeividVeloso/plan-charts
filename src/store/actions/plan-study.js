@@ -5,6 +5,11 @@ export const requestedPlanStudy = (payload) => ({
   payload: payload
 })
 
+export const fetchedPlanStudy = (payload) => ({
+  type: 'FETCHED_PLAN_STUDY',
+  payload: payload
+})
+
 export const rejectedPlanStudy = (payload) => ({
   type: 'REJECTED_PLAN_STUDY',
   payload: payload
