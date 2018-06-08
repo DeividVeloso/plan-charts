@@ -1,21 +1,20 @@
 import axios from 'axios';
-const url = 'http://localhost:3000/api/';
-const PlanStudy = async function () {
-  request = (body = {}, verb = "get") => {
-    const response = await axios[verb](url, body);
+const url = 'https://morning-castle-94305.herokuapp.com';
+const PlanStudy =  function () {
+   const request = async (path = 'health', verb = "get", body = {}) => {
+    const response = await axios[verb](`${url}/${path}`, body);
     return response.data;
   }
 
-  getPlanStudyAll = () => {
-    request()
+  const getPlanStudyAll = () => {
     return;
   }
 
-  getPlanStudyByYear = () => {
-    return;
+  const getPlanStudyByYear = (year) => {
+    return request(`plan/${year}`)
   }
 
-  getPlanStudyBySubtitle = () => {
+  const getPlanStudyBySubtitle = () => {
     return;
   }
 

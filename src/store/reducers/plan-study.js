@@ -1,6 +1,7 @@
 import { 
   REQUESTED_PLAN_STUDY,
-  REJECTED_PLAN_STUDY 
+  REJECTED_PLAN_STUDY,
+  FETCHED_PLAN_STUDY
 } 
 from '../actions/actionTypes';
 
