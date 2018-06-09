@@ -4,23 +4,18 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import './index.css';
-import App from './App';
+//import App from './App';
+import Router from './routes/Router'
 import registerServiceWorker from './registerServiceWorker';
 import planApp from './store/reducers/';
 import {requestPlanStudyByYear} from './store/thunks/plan-study'
 
 const store = createStore(planApp, applyMiddleware(thunk));
-
-const unsubscribe = store.subscribe(() =>
-  console.log("STORE", store.getState())
-)
-
-store.dispatch(requestPlanStudyByYear('Learn about actions'))
-// store.dispatch(rejectedPlanStudy('Learn about actions'))
+store.dispatch(requestPlanStudyByYear())
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router />
   </Provider>,
   document.getElementById('root')
 );
