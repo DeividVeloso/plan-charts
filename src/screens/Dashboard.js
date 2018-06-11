@@ -33,9 +33,9 @@ class Dashboard extends React.Component {
     }
   }
 
-  static getDerivedStateFromProps(prevState, nextState) {
-    if (prevState.plan) {
-      const cycles = handleCycleByTotalHour(prevState.plan.cycles)
+  static getDerivedStateFromProps(nextProps) {
+    if (nextProps.plan) {
+      const cycles = handleCycleByTotalHour(nextProps.plan.cycles)
       return {
         cycles: cycles
       }
