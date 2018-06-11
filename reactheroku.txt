@@ -2,6 +2,9 @@ git remote -v
 
 https://github.com/DeividVeloso/plan-charts.git
 
-heroku create -b https://github.com/DeividVeloso/plan-charts.git
+heroku create 
 git push heroku master
+
+heroku ps:scale web=1
+
 heroku open
