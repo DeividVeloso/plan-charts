@@ -52,9 +52,9 @@ class Dashboard extends React.Component {
             Opa
           </Typography>
           <BarChart
-            width={1200}
+            width={800}
             height={350}
-            data={this.state.cycles}
+            data={this.state.cycles.filter((item, key) => key < 4)}
             margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
@@ -96,7 +96,7 @@ const handleCycleByTotalHour = (cycles) => {
       
       result.push({
         subject: subject,
-        totalHours: totalHour
+        totalHours: parseFloat(totalHour)
       })
     })
   }
@@ -113,7 +113,7 @@ function calcTotalHourAndMinutes(hour, minutes) {
 
     total += intHour
   }
-  return `${total}:${Math.floor(remainMinutes * 60)}`
+  return `${total}.${Math.floor(remainMinutes * 60)}`
 }
 
 
