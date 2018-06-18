@@ -46,9 +46,10 @@ class Dashboard extends React.Component {
     const { classes } = this.props;
     return (
       <div>
+        {console.log("OPA", this.state.cycles)}
         <Paper className={classes.root} elevation={4}>
           <Typography variant="headline" component="h3">
-            Meus estudos
+            Opa
           </Typography>
           <BarChart
             width={1200}
@@ -58,7 +59,7 @@ class Dashboard extends React.Component {
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="subject" />
-            <YAxis />
+            <YAxis dataKey="totalHours" />
             <Tooltip />
             <Legend />
             <Bar dataKey="totalHours" fill="#8884d8" />
@@ -69,27 +70,52 @@ class Dashboard extends React.Component {
   }
 }
 
-const handleCycleByTotalHour = (cycles) =>{
+const handleCycleByTotalHour = (cycles) => {
   let groupSubject = [];
   let result = [];
   if (cycles) {
     groupSubject = _values(_groupBy(cycles, 'subject'));
     groupSubject.map((subjectItem, index) => {
       let totalHourBySubject = 0;
+      let totalMinutesBySubject = 0;
       let subject;
+      let totalHour = 0;
+
       subjectItem.map((item, index) => {
-        let hour = sumTotalHours(item.studyHour);
-        totalHourBySubject += hour.hour;
+        let time = sumTotalHours(item.studyHour);
+        let hour = time.hour;
+        let minutes = time.minutes;
+
+        totalHourBySubject += hour;
+        totalMinutesBySubject += minutes;
+
         subject = item.subject;
       })
+
+      totalHour = calcTotalHourAndMinutes(totalHourBySubject, totalMinutesBySubject)
+      
       result.push({
         subject: subject,
-        totalHours: totalHourBySubject
+        totalHours: totalHour
       })
     })
   }
   return result;
 }
+
+function calcTotalHourAndMinutes(hour, minutes) {
+  let total = hour;
+  let remainMinutes = 0;
+  if (minutes > 60) {
+    let totalHour = minutes / 60;
+    let intHour = Math.floor(totalHour);
+    remainMinutes = totalHour % 1
+
+    total += intHour
+  }
+  return `${total}:${Math.floor(remainMinutes * 60)}`
+}
+
 
 const sumTotalHours = (hours) => {
   const time = hours.split(':');
