@@ -8,8 +8,7 @@ import PlanStudy from '../queries/plan-study'
 
 export const requestPlanStudyByYear =  () => async dispatch => {
   dispatch(requestedPlanStudy());
-  const response = await PlanStudy().getPlanStudyByYear('2018');
-  console.log('Doidera', response)
+  const response = await PlanStudy().getPlanStudyByYear('2018'); 
   dispatch(fetchedPlanStudy(response));
 }
 

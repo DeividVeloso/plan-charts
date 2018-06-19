@@ -7,11 +7,12 @@ const PlanStudy =  function () {
   }
 
   const getPlanStudyAll = () => {
-    return;
+    return request(`plan/`);
   }
 
   const getPlanStudyByYear = (year) => {
-    return request(`plan/${year}`)
+    //return request(`plan/${year}`)
+    return request(`plan/`)
   }
 
   const getPlanStudyBySubtitle = () => {
