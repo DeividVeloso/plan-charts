@@ -26,7 +26,8 @@ const styles = theme => ({
 
 
 
-
+const sizePage = (window.innerWidth || 800) * 0.85
+console.log("Size", sizePage)
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -54,7 +55,7 @@ class Dashboard extends React.Component {
             Meus estudos
           </Typography>
           <BarChart
-            width={window.innerWidth || 800}
+            width={sizePage}
             height={350}
             data={this.state.cycles}
             margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
