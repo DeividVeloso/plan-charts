@@ -54,7 +54,7 @@ class Dashboard extends React.Component {
           <BarChart
             width={800}
             height={350}
-            data={this.state.cycles.filter((item, key) => key < 4)}
+            data={this.state.cycles}
             margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
@@ -93,7 +93,7 @@ const handleCycleByTotalHour = (cycles) => {
       })
 
       totalHour = calcTotalHourAndMinutes(totalHourBySubject, totalMinutesBySubject)
-      
+
       result.push({
         subject: subject,
         totalHours: parseFloat(totalHour)
