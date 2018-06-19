@@ -25,6 +25,8 @@ const styles = theme => ({
 });
 
 
+
+
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -46,13 +48,13 @@ class Dashboard extends React.Component {
     const { classes } = this.props;
     return (
       <div>
-        {console.log("OPA", this.state.cycles)}
+      
         <Paper className={classes.root} elevation={4}>
           <Typography variant="headline" component="h3">
             Opa
           </Typography>
           <BarChart
-            width={800}
+            width={window.innerWidth || 800}
             height={350}
             data={this.state.cycles}
             margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
@@ -106,6 +108,8 @@ const handleCycleByTotalHour = (cycles) => {
 function calcTotalHourAndMinutes(hour, minutes) {
   let total = hour;
   let remainMinutes = 0;
+  // console.log("Hour", hour)
+  // console.log("minutes", minutes)
   if (minutes > 60) {
     let totalHour = minutes / 60;
     let intHour = Math.floor(totalHour);
@@ -119,8 +123,8 @@ function calcTotalHourAndMinutes(hour, minutes) {
 
 const sumTotalHours = (hours) => {
   const time = hours.split(':');
-  const hour = parseInt(time[0], 10);
-  const minutes = parseInt(time[1], 10);
+  const hour = parseInt(time[0], 10) || 0;
+  const minutes = parseInt(time[1], 10) || 0;
   const fullTime = {
     hour: hour,
     minutes: minutes
