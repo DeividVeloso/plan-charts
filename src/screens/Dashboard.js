@@ -13,8 +13,7 @@ import {
   Legend
 } from 'recharts';
 import { connect } from 'react-redux';
-import _groupBy from 'lodash/groupBy'
-import _values from 'lodash/values'
+import { handleCycleByTotalHour, sumHoursByYear } from '../utils/helpers'
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -27,18 +26,20 @@ const styles = theme => ({
 
 
 const sizePage = (window.innerWidth || 800) * 0.85
-console.log("Size", sizePage)
+
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       cycles: []
     }
+
   }
 
   static getDerivedStateFromProps(nextProps) {
     if (nextProps.plan) {
       const cycles = handleCycleByTotalHour(nextProps.plan.cycles)
+
       return {
         cycles: cycles
       }
@@ -47,9 +48,9 @@ class Dashboard extends React.Component {
 
   render() {
     const { classes } = this.props;
+    console.log(this.props.plan)
     return (
       <div>
-      
         <Paper className={classes.root} elevation={4}>
           <Typography variant="headline" component="h3">
             Meus estudos
@@ -68,69 +69,24 @@ class Dashboard extends React.Component {
             <Bar dataKey="totalHours" fill="#8884d8" />
           </BarChart>
         </Paper>
+        {this.props.plan && this.props.plan.totalHourByYear ?
+          <Paper className={classes.root} style={{ display: 'flex' }} elevation={4}>
+            <Typography variant="headline" component="h3">
+              Total de horas em:
+            </Typography>
+            <div style={{ display: 'flex', flexDirection: 'column', marginLeft: 20 }} >
+              {this.props.plan.totalHourByYear.map(item => {
+                return (
+                  <Typography variant="headline" component="h3">
+                    {item.year} - {item.totalHours}
+                  </Typography>
+                )
+              })}
+            </div>
+          </Paper> : null}
       </div>
     );
   }
-}
-
-const handleCycleByTotalHour = (cycles) => {
-  let groupSubject = [];
-  let result = [];
-  if (cycles) {
-    groupSubject = _values(_groupBy(cycles, 'subject'));
-    groupSubject.map((subjectItem, index) => {
-      let totalHourBySubject = 0;
-      let totalMinutesBySubject = 0;
-      let subject;
-      let totalHour = 0;
-
-      subjectItem.map((item, index) => {
-        let time = sumTotalHours(item.studyHour);
-        let hour = time.hour;
-        let minutes = time.minutes;
-
-        totalHourBySubject += hour;
-        totalMinutesBySubject += minutes;
-
-        subject = item.subject;
-      })
-
-      totalHour = calcTotalHourAndMinutes(totalHourBySubject, totalMinutesBySubject)
-
-      result.push({
-        subject: subject,
-        totalHours: parseFloat(totalHour)
-      })
-    })
-  }
-  return result;
-}
-
-function calcTotalHourAndMinutes(hour, minutes) {
-  let total = hour;
-  let remainMinutes = 0;
-  // console.log("Hour", hour)
-  // console.log("minutes", minutes)
-  if (minutes > 60) {
-    let totalHour = minutes / 60;
-    let intHour = Math.floor(totalHour);
-    remainMinutes = totalHour % 1
-
-    total += intHour
-  }
-  return `${total}.${Math.floor(remainMinutes * 60)}`
-}
-
-
-const sumTotalHours = (hours) => {
-  const time = hours.split(':');
-  const hour = parseInt(time[0], 10) || 0;
-  const minutes = parseInt(time[1], 10) || 0;
-  const fullTime = {
-    hour: hour,
-    minutes: minutes
-  }
-  return fullTime
 }
 
 const mapStateToProps = state => {

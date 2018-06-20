@@ -11,8 +11,7 @@ const PlanStudy =  function () {
   }
 
   const getPlanStudyByYear = (year) => {
-    //return request(`plan/${year}`)
-    return request(`plan/`)
+    return request(`plan/${year}`)
   }
 
   const getPlanStudyBySubtitle = () => {

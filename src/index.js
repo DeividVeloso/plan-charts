@@ -8,10 +8,10 @@ import './index.css';
 import Router from './routes/Router'
 import registerServiceWorker from './registerServiceWorker';
 import planApp from './store/reducers/';
-import {requestPlanStudyByYear} from './store/thunks/plan-study'
+import {requestPlanStudyAll} from './store/thunks/plan-study'
 
 const store = createStore(planApp, applyMiddleware(thunk));
-store.dispatch(requestPlanStudyByYear())
+store.dispatch(requestPlanStudyAll())
 
 ReactDOM.render(
   <Provider store={store}>
