@@ -53,7 +53,7 @@ class Dashboard extends React.Component {
       <div>
         <Paper className={classes.root} elevation={4}>
           <Typography variant="headline" component="h3">
-            Meus estudos
+            Meus estudos de 2016 até {new Date().getFullYear()}
           </Typography>
           <BarChart
             width={sizePage}
