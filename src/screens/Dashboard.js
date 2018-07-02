@@ -49,6 +49,8 @@ class Dashboard extends React.Component {
   render() {
     const { classes } = this.props;
     console.log(this.props.plan)
+    //Muitas cores para cada barra
+    //https://github.com/recharts/recharts/issues/43
     return (
       <div>
         <Paper className={classes.root} elevation={4}>
