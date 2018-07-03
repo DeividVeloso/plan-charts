@@ -10,7 +10,8 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend
+  Legend,
+  Cell
 } from 'recharts';
 import { connect } from 'react-redux';
 import { handleCycleByTotalHour, sumHoursByYear } from '../utils/helpers'
@@ -23,7 +24,7 @@ const styles = theme => ({
   })
 });
 
-
+const colors = ['#27634c','#ae28b7','#28b73b','#b73d28','#2840b7','#27634c','#ae28b7','#28b73b','#b73d28','#2840b7','#27634c','#ae28b7','#28b73b','#b73d28','#2840b7','#27634c','#ae28b7','#28b73b','#b73d28','#2840b7']
 
 const sizePage = (window.innerWidth || 800) * 0.85
 
@@ -68,7 +69,13 @@ class Dashboard extends React.Component {
             <YAxis dataKey="totalHours" />
             <Tooltip />
             <Legend />
-            <Bar dataKey="totalHours" fill="#8884d8" />
+            <Bar dataKey="totalHours">
+              {
+                this.state.cycles.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={colors[index]} strokeWidth={index === 2 ? 4 : 1} />
+                ))
+              }
+            </Bar>
           </BarChart>
         </Paper>
         {this.props.plan && this.props.plan.totalHourByYear ?
